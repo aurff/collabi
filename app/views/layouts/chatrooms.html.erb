@@ -11,10 +11,28 @@
   <body>
     <%= render "partials/layouts/navigation" %>
 
-    <p class"notice"><%= notice %></p>
-    <p class"alert"><%= alert %></p>
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-sm-12">
+        </div>
 
+      <div class="row">
+        <div class="col-sm-2">
+          <% if user_signed_in? %>
+            <h5>Channels</h5>
+            <ul>
+              <% current_user.chatrooms.each do |chatroom| %>
+                <li><%= link_to chatroom.name, "#" %></li>
+              <% end %>
+            </ul>
+          <% end %>
+        </div>
 
-    <%= yield %>
+        <div class="col-sm-10">
+          <%= yield %>
+        </div>
+      </div>
+    </div>
+
   </body>
-  </html>
+</html>
