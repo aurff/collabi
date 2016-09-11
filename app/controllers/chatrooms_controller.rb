@@ -19,10 +19,6 @@ class ChatroomsController < ApplicationController
     @chatroom = Chatroom.new
   end
 
-  # GET /chatrooms/1/edit
-  def edit
-  end
-
   # POST /chatrooms
   # POST /chatrooms.json
   def create
@@ -34,20 +30,6 @@ class ChatroomsController < ApplicationController
         format.json { render :show, status: :created, location: @chatroom }
       else
         format.html { render :new }
-        format.json { render json: @chatroom.errors, status: :unprocessable_entity }
-      end
-    end
-  end
-
-  # PATCH/PUT /chatrooms/1
-  # PATCH/PUT /chatrooms/1.json
-  def update
-    respond_to do |format|
-      if @chatroom.update(chatroom_params)
-        format.html { redirect_to @chatroom, notice: 'Chatroom was successfully updated.' }
-        format.json { render :show, status: :ok, location: @chatroom }
-      else
-        format.html { render :edit }
         format.json { render json: @chatroom.errors, status: :unprocessable_entity }
       end
     end
