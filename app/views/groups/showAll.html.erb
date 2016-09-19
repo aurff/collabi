@@ -56,7 +56,7 @@
   </div>
   <div class="col-sm-11">
     
-      <%= select_tag( 'course', options_from_collection_for_select(Group.where("university = '#{params[:showAll]}'"), "course", "course", params[:course]), { :include_blank => "Course auswählen", :onchange => 'this.form.submit()' })  %>
+      <%= select_tag( 'course', options_from_collection_for_select(Group.select(:course).distinct.where("university = '#{params[:showAll]}'").order("course ASC"), "course", "course", params[:course]), { :include_blank => "Course auswählen", :onchange => 'this.form.submit()' })  %>
       <%#= link_to "Filter anwenden", { :controller => "groups", :action => "showAll", :university_ID => params[:showAll], :course_name => params[:course]},  {:class => "btn btn-default", :id => 'filterLink'} %>
       <%#= select_tag 'course', options_from_collection_for_select(Group.where("university = '#{params[:showAll]}'"), 'id', 'course', {:onchange => 'this.form.submit()' }) %>
     <%#= select_tag 'course', options_from_collection_for_select(@groups, 'id', 'course', {:include_blank => true}) %>
