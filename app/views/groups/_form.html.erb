@@ -1,0 +1,67 @@
+<div class="row">
+  <div class="col-sm-4 col-sm-offset-4">
+    <h2 class="text-center">Lerngruppe anlegen</h2>
+    <hr>
+
+    <%= form_for(group) do |f| %>
+      <% if group.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(group.errors.count, "error") %> prohibited this group from being saved:</h2>
+
+          <ul>
+          <% group.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+          </ul>
+        </div>
+      <% end %>
+
+<form class="form-inline" role="form">
+      <div class="form-group">
+        <%= f.label :name %>
+        <%= f.text_field :name, autofocus: true, class: 'form-control', id: 'groupName' %>
+      </div>
+
+      <!--<div class="form-group">
+        <#%= f.label :title %>
+        <#%= f.text_field :title, class: 'form-control', id: 'groupTitle' %>
+      </div>-->
+
+      <div class="form-group">
+        <%= f.label :description %>
+        <%= f.text_area :description, class: 'form-control', id: 'groupDescription' %>
+      </div>
+
+      <!--<div class="form-group">
+        <#%= f.label :owner %>
+        <#%= f.text_field :owner, class: 'form-control', id: 'groupOwner' %>
+      </div>-->
+
+      <div class="form-group">
+        <%= f.label :maxMember %>
+        <%= f.number_field :maxMember, class: 'form-control'%>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :university %>
+        <%= f.collection_select(:university, University.all, :name, :name, {class: 'form-control'}) %>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :course %>
+        <%= f.text_field :course, class: 'form-control' %>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :term %>
+        <%= f.select :term, [ 'WiSe 16/17' ] %>
+      </div>
+  
+      <div class="actions">
+        <%= f.submit "Create Group", :class => "btn btn-default" %>
+        <%= link_to 'Back', site_finder_path, :class => "btn btn-default" %>
+      </div>
+    <% end %>
+    </form>
+  </div>
+</div>

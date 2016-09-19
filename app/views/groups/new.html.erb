@@ -1,0 +1,6 @@
+<% if user_signed_in? %>
+  <%= render 'form', group: @group %>
+<% else %>
+<!-- Enter Redirect here to login later -->
+You need to be logged in to create a new Group
+<% end %>

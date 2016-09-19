@@ -1,0 +1,194 @@
+<script>
+  $(document).ready(function(){
+  //  $("#course").hide();
+  //  $("#courseTitle").hide();
+  //  $("#filterButton").hide();
+  });
+</script>
+
+<p id="notice"><%= notice %></p>
+
+<div class="row">
+  <div class="col-sm-1">
+  University: 
+  </div>
+  <div class="col-sm-11">
+
+
+      <form>
+      <%#= form_tag({ controller: 'groups', action: 'showAll' }, method: 'get', id: 'university_form') do %>
+        <%= select_tag( 'showAll', options_from_collection_for_select(@universities, "name", "name", params[:showAll]), { :include_blank => "University auswählen", :onchange => 'this.form.submit()' })  %>
+        <%#= link_to "Filter anwenden", {:controller => "groups", :action => "showAll", :university_ID => params[:showAll]},  {:class => "btn btn-default"} %>
+        <%#= submit_tag "Search", name: 'university_submit', class: 'btn' %>
+        <%#= select_tag 'university_dropdown', options_from_collection_for_select(@universities, 'id', 'name'), { :include_blank => "University auswählen", :onchange => 'myFunction()' } %>
+        <%#= select_tag 'university_id', options_from_collection_for_select(@universities, 'id', 'name', params[:get_university]), { :include_blank => "University auswählen", :onchange => 'myFunction()' } %>
+        <%#= collection_select(:university, :university_id, University.order('name ASC'), :id, :name, include_blank: 'University auswählen', :onchange => 'myFunction()') %>
+      
+      
+      <script>
+        function myFunction() {
+          var mylist = document.getElementById("showAll");
+  
+         // if (mylist.options[mylist.selectedIndex].value == "HAW") {
+            //$(document).ready(function(){
+          //    $("#course").show();
+          //    $("#courseTitle").show();
+          //    $("#filterButton").show();
+            });
+         // }
+         // else {
+          //  $(document).ready(function(){
+          //    $("#course").hide();
+          //    $("#courseTitle").hide();
+          //    $("#filterButton").hide();
+            });
+        //  }
+        }
+      </script>
+      
+  </div>
+</div>
+<br>
+
+<div class="row">
+  <div class="col-sm-1" id="courseTitle">
+  Course: 
+  </div>
+  <div class="col-sm-11">
+    
+      <%= select_tag( 'course', options_from_collection_for_select(Group.where("university = '#{params[:showAll]}'"), "course", "course", params[:course]), { :include_blank => "Course auswählen", :onchange => 'this.form.submit()' })  %>
+      <%#= link_to "Filter anwenden", { :controller => "groups", :action => "showAll", :university_ID => params[:showAll], :course_name => params[:course]},  {:class => "btn btn-default", :id => 'filterLink'} %>
+      <%#= select_tag 'course', options_from_collection_for_select(Group.where("university = '#{params[:showAll]}'"), 'id', 'course', {:onchange => 'this.form.submit()' }) %>
+    <%#= select_tag 'course', options_from_collection_for_select(@groups, 'id', 'course', {:include_blank => true}) %>
+   <%#= select_tag 'course', options_from_collection_for_select(@groups, 'id', 'course'), { :include_blank => "Course auswählen" } %>
+  </form>
+  </div>
+</div>
+
+<br>
+
+<% if (!@universities.nil?) %>
+<%= @univerities %>
+
+
+<%# end %>
+
+<div class"row">
+  <div class="col-sm-1">
+    
+  </div>
+  <div class="col-sm-11">
+    <!--<form id="filterButton" %>-->
+       <!--<button type="submit" name="action" value="1">Uhrzeit</button>-->
+      <%= link_to "Filter anwenden", { :controller => "groups", :action => "showAll", :university_ID => params[:showAll], :course_name => params[:course]},  {:class => "btn btn-default", :id => 'filterLink'} %>
+    <!--</form>-->
+    </form>
+  </div>
+</div>
+
+<% end %>
+
+<hr>
+
+
+<div class="container">
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Plätze frei</th>
+        <th>University</th>
+        <th>Course</th>
+        <th>Term</th>
+        <th></th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+    
+
+<% @groups.each do |group| %>
+
+
+  
+    <tr>
+      <td>
+        <%= group.name %>
+      </td>
+  </div>
+  
+  <!--<div class="col-sm-1">
+    <p>
+      <strong>Title:</strong>
+      <%#= group.title %>
+    </p>
+  </div>-->
+  
+  <!--div class="col-sm-1">
+    <p>
+      <strong>Description:</strong>
+      <%#= group.description %>
+    </p>
+  </div>-->
+  
+  <!--<div class="col-sm-2">
+    <p>
+      <strong>User:</strong>
+      <#%= @group.user %>
+    </p>
+  </div>-->
+  
+  <div class="col-sm-2">
+    <p>
+      <td>
+      <%= group.maxMember - (group.user.count ",") - 1 %>
+    </td>
+    </p>
+  </div>
+  
+  <div class="col-sm-2">
+    <p>
+      <td>
+      <%= group.university %>
+    </td>
+    </p>
+  </div>
+  
+  <div class="col-sm-2">
+    <p>
+      <td>
+      <%= group.course %>
+    </td></p>
+  </div>
+  
+  <div class="col-sm-1">
+    <p>
+      <td>
+      <%= group.term %>
+    </td></p>
+  </div>
+  
+  <div class="col-sm-2">
+    <p>
+      <td>
+      <% if group.user.include?(current_user.username) %>
+        Bereits der Gruppe beigetreten
+        <%#= button_to "Gruppe beitreten", {:controller => "groups", :action => "addUserToGroup", :groupID => group.id}, {:class => "btn btn-default"} %>
+      <% elsif (group.maxMember - (group.user.count ",") - 1 ) == 0 %>
+        Keine Plätze mehr frei
+      <% else %>
+        <%= button_to "Gruppe beitreten", {:controller => "groups", :action => "addUserToGroup", :groupID => group.id}, {:class => "btn btn-default"} %>
+      <% end %>
+    </td></p>
+  </div>
+  
+  <div class="col-sm-1">
+    <td>
+    <%= link_to "Details", :controller => "groups", :action => "show", :id => group.id %>
+  </div>
+  </td>
+</tr>
+<% end %>
+</tbody>
+  </table>
+</div>

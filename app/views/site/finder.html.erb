@@ -1,0 +1,9 @@
+<h1>Site#finder</h1>
+<% if user_signed_in? %>
+  <p>Find me in app/views/site/finder.html.erb</p>
+  <%= link_to "Lerngruppe finden", groups_showAll_path %>
+  <%= link_to "Lerngruppe anlegen", new_group_path %>
+<% else %>
+<!-- Enter Redirect here to login later -->
+You need to be logged in to see this page
+<% end %>

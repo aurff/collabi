@@ -1,0 +1,77 @@
+<div class="row">
+  <div class="col-sm-1">
+    <p>
+      <strong>Name:</strong>
+      <%= @groups.name %>
+    </p>
+  </div>
+  
+  <div class="col-sm-1">
+    <p>
+      <strong>Title:</strong>
+      <%= @groups.title %>
+    </p>
+  </div>
+  
+  <div class="col-sm-1">
+    <p>
+      <strong>Description:</strong>
+      <%= @groups.description %>
+    </p>
+  </div>
+  
+  <!--<div class="col-sm-2">
+    <p>
+      <strong>User:</strong>
+      <#%= @group.user %>
+    </p>
+  </div>-->
+  
+  <div class="col-sm-1">
+    <p>
+      <strong>Plätze frei:</strong>
+      <%= @groups.maxMember - (@groups.user.count ",") - 1 %>
+    </p>
+  </div>
+  
+  <div class="col-sm-1">
+    <p>
+      <strong>University:</strong>
+      <%= @groups.university %>
+    </p>
+  </div>
+  
+  <div class="col-sm-1">
+    <p>
+      <strong>Course:</strong>
+      <%= @groups.course %>
+    </p>
+  </div>
+  
+  <div class="col-sm-1">
+    <p>
+      <strong>Term:</strong>
+      <%= @groups.term %>
+    </p>
+  </div>
+  
+  <div class="col-sm-1">
+    <p>
+      <strong>Member:</strong>
+      <%#= @groups.user %>
+      <% members = @groups.user.split(",")
+       members.each do |member| %>
+         <%= member %>
+      <% end %>
+    </p>
+  </div>
+  
+  <div class="col-sm-1">
+    <p>
+      <% if (@groups.user.include? current_user.username) %>
+        <%= button_to "Gruppe verlassen", {:controller => "groups", :action => "removeUserFromGroup", :groupID => @groups.id}, {:class => "btn btn-default"} %>
+      <% elsif (@groups.maxMember - (@groups.user.count ",") - 1 ) > 0 %>
+        <%= button_to "Gruppe beitreten", {:controller => "groups", :action => "addUserToGroup", :groupID => @groups.id}, {:class => "btn btn-default"} %>
+      <% end %>
+    </p>
+  </div>
